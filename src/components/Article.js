@@ -1,12 +1,11 @@
 import useFetch from './useFetch';
 
-function Article({ id ,img}) {
+function Article({ id,img }) {
 
     const url = `https://vipestudio.com/wp-json/wp/v2/posts/${id}`
 
     const { data, isPending, error } = useFetch(url)
     
-
     return (
         <>
             {error && <div>{error}</div>}

@@ -7,7 +7,7 @@
 import useFetch from './useFetch';
 import PostsList from './PostsList';
 
-function Home({setId,setImg}) {
+function Home({setId}) {
 
     const url = 'https://vipestudio.com/wp-json/wp/v2/posts?_embed'
 
@@ -17,7 +17,7 @@ function Home({setId,setImg}) {
         <ul className="posts-list">
             {error && <div>{error}</div>}
             {isPending && <div>Loading ...</div>}
-            {data && <PostsList setId={setId} setImg={setImg} posts={data} />}
+            {data && <PostsList setId={setId} posts={data} />}
         </ul>
     )
 }
