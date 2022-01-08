@@ -3,20 +3,39 @@
 
 // 2. Задача 2(advanced): Всеки пост да бъде линк, който да матчва "slug" key - 
 // а.Когато се кликне, да отваря индивидулна страница със снимка, текст, дата и контент на публикацията.
-
+import { useEffect, useState } from 'react';
 import useFetch from './useFetch';
 import PostsList from './PostsList';
+import WPAPI from 'wpapi'
 
-function Home({setId}) {
+function Home({ setId }) {
 
-    const url = 'https://vipestudio.com/wp-json/wp/v2/posts?_embed'
+    const [data, setData] = useState(null)
 
-    const { data, isPending, error } = useFetch(url)
+    const wp = new WPAPI({
+        endpoint: 'http://vipestudio.com/wp-json',
+    });
+
+    async function fetchPosts() {
+        try {
+            const posts = await wp.posts().embed().get();
+            return posts;
+        } catch (e) {
+            console.log(e);
+            return [];
+        }
+    }
+
+    useEffect(() => {
+        fetchPosts().then(res => setData(res))
+    }, [])
+
+    // const url = 'https://vipestudio.com/wp-json/wp/v2/posts?_embed'
+
+    // const { data, isPending, error } = useFetch(url)
 
     return (
         <ul className="posts-list">
-            {error && <div>{error}</div>}
-            {isPending && <div>Loading ...</div>}
             {data && <PostsList setId={setId} posts={data} />}
         </ul>
     )

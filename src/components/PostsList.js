@@ -10,7 +10,7 @@ function PostsList({ posts, setId}) {
                     <img className='main-img' src={x["_embedded"]["wp:featuredmedia"][0]["source_url"]} />
                     <h1 className='main-header'>{x.title.rendered}</h1>
                     <div className='excerpt' dangerouslySetInnerHTML={{ __html: x.excerpt.rendered }} />
-                    <Link to={x.slug}><button className="read-more-btn" onClick={() => setId({id:x.id,img:x["_embedded"]["wp:featuredmedia"][0]["source_url"]})}>Read More ...</button></Link>
+                    <Link to={x.slug}><button className="read-more-btn" onClick={() => setId(x.id)}>Read More ...</button></Link>
                 </li>)
             })}
         </ul>
