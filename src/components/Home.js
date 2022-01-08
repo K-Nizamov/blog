@@ -13,7 +13,7 @@ function Home({ setId }) {
     const [data, setData] = useState(null)
 
     const wp = new WPAPI({
-        endpoint: 'http://vipestudio.com/wp-json',
+        endpoint: 'https://vipestudio.com/wp-json',
     });
 
     async function fetchPosts() {
