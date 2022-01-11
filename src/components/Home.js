@@ -10,33 +10,40 @@ import WPAPI from 'wpapi'
 
 function Home({ setId }) {
 
-    const [data, setData] = useState(null)
+    const [response, setResponse] = useState(null)
 
-    const wp = new WPAPI({
-        endpoint: 'https://vipestudio.com/wp-json',
-    });
+    // const wp = new WPAPI({
+    //     endpoint: 'https://vipestudio.com/wp-json',
+    // });
 
-    async function fetchPosts() {
-        try {
-            const posts = await wp.posts().embed().get();
-            return posts;
-        } catch (e) {
-            console.log(e);
-            return [];
-        }
-    }
+    // async function fetchPosts() {
+    //     try {
+    //         const posts = await wp.posts().embed().get();
+    //         return posts;
+    //     } catch (e) {
+    //         console.log(e);
+    //         return [];
+    //     }
+    // }
 
+    
+    const url = 'https://vipestudio.com/wp-json/wp/v2/posts?_embed'
+    
+    const { data, isPending, error } = useFetch(url)
+    console.log(data);
     useEffect(() => {
-        fetchPosts().then(res => setData(res))
-    }, [])
+        if(data){
 
-    // const url = 'https://vipestudio.com/wp-json/wp/v2/posts?_embed'
-
-    // const { data, isPending, error } = useFetch(url)
+            setResponse(data)
+        }
+        // fetchPosts().then(res => setData(res))
+    }, [data])
 
     return (
         <ul className="posts-list">
-            {data && <PostsList setId={setId} posts={data} />}
+            {error&& <div>{error}</div>}
+            {isPending && <div>Loading ...</div>}
+            {response && <PostsList setId={setId} posts={response} />}
         </ul>
     )
 }

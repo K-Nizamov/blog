@@ -5,7 +5,8 @@ const useFetch = (url) => {
     const [isPending, setIsPending] = useState(true);
     const [error, setError] = useState(null);
     useEffect(() => {
-        fetch(url)
+
+        fetch(url,{cache: "reload"})
             .then(res => {
                 if (!res.ok) {
                     throw Error('Fetch failed')
