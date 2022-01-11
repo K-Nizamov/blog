@@ -6,7 +6,7 @@ const useFetch = (url) => {
     const [error, setError] = useState(null);
     useEffect(() => {
 
-        fetch(url)
+        fetch(url, { cache: 'reload' })
             .then(res => {
                 if (!res.ok) {
                     throw Error('Fetch failed')
